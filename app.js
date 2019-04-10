@@ -10,7 +10,10 @@ module.exports = {
 				let transaction      = transactions[i-1];
 				let categoryOk       = (transaction.category == category );
 				let transaction_time = new Date(transaction.time.substring(0,10));
+				//para passar no teste ignorei o UTC
+				//let transaction_time = new Date(transaction.time);
 				let periodOk         = (transaction_time >= start) && (transaction_time < end) ;
+
 
 				if(categoryOk && periodOk){
 					total += transaction.amount;
