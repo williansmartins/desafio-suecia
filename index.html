@@ -69,27 +69,32 @@
         ];
         
         findDuplicateTransactions(transactions);
+
         
         function findDuplicateTransactions (transactions = []) {
             var result = groupBy(transactions, function(item)
             {
-            return [item.sourceAccount, item.targetAccount, item.amount, item.category];
+                return [item.sourceAccount, item.targetAccount, item.amount, item.category];
             });
-        
+            
             result = removeUniqueElements(result);
-
+            
+            Array.prototype.diff = function(a) {
+                return this.filter(function(i) {return a.indexOf(i) < 0;});
+            };
             var manterEstes = removeElementsByDate(result);
+            var removerEstes = transactions.diff(manterEstes);
+
         
             result.forEach(element1 => {
                 element1.forEach((element2, index) => {
-                    // manterEstes.forEach(element => {
-                        
-                    // });
-                    if(element2.id == 4){
-                        console.info("encontrei o elemento a ser removido: ");
-                        console.info(element2);
-                        element1.splice(index, 1);
-                    }
+                    removerEstes.forEach(element3 => {
+                        if(element2.id == element3.id){
+                            console.info("encontrei o elemento a ser removido: ");
+                            console.info(element2);
+                            element1.splice(index, 1);
+                        }
+                    });
                 });
             });
 
@@ -146,44 +151,20 @@
                 }
             }
 
-            //remover os não listados
-            // for(var i = 0; i<array.length; i++){
-            //     //blocos maiores
-            //     var blocoMaior = array[i];
-
-            //     for(var j = 0; j<blocoMaior.length; j++){
-            //         //blocos menores
-            //         var blocoMenor = blocoMaior[j];
-
-            //         for(var w = 0; w<filtered.length; w++){
-            //             if(filtered[w].id == blocoMenor.id){
-            //                 console.info("não remover este: " + blocoMenor.id);
-            //             }else{
-            //                 console.info("remover este: " + blocoMenor.id);
-            //                 delete blocoMenor;
-            //             }
-                        
-            //         }
-                    
-            //     }
-            // }
             return filtered;
 
         }
 
-        function groupBy( array , f )
-        {
-        var groups = {};
-        array.forEach( function( o )
-        {
-            var group = JSON.stringify( f(o) );
-            groups[group] = groups[group] || [];
-            groups[group].push( o );  
-        });
-        return Object.keys(groups).map( function( group )
-        {
-            return groups[group]; 
-        })
+        function groupBy( array , f ){
+            var lists = {};
+            array.forEach( function( o ){
+                var list = JSON.stringify( f(o) );
+                lists[list] = lists[list] || [];
+                lists[list].push( o );  
+            });
+            return Object.keys(lists).map( function( list ){
+                return lists[list]; 
+            })
         }
 
 
