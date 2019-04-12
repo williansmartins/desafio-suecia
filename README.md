@@ -27,7 +27,7 @@ it("test transactionsAllPossibilities (-10)", function() {
 ### 3. Writing implementation code:
 
 ![code.jpg](https://github.com/williansmartins/test---javascript/blob/master/code.jpg)
-### 4. Then run the lifecicle of tests:
+### 4. Then run the lifecycle of tests:
 
 ![tests-broken.jpg](https://github.com/williansmartins/test---javascript/blob/master/tests-broken.jpg)
 
