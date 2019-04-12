@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let transactions = [
+        {
+            id: 333,
+            sourceAccount: 'xx',
+            targetAccount: 'yy',
+            amount: 100,
+            category: 'extra',
+            time: '2018-03-02T10:34:30.000Z'
+        },{
+            id: 33,
+            sourceAccount: 'xx',
+            targetAccount: 'yy',
+            amount: 100,
+            category: 'extra',
+            time: '2018-03-02T10:34:30.000Z'
+        },{
+            id: 3,
+            sourceAccount: 'A',
+            targetAccount: 'B',
+            amount: 100,
+            category: 'eating_out',
+            time: '2018-03-02T10:34:30.000Z'
+        },{
+            id: 1,
+            sourceAccount: 'A',
+            targetAccount: 'B',
+            amount: 100,
+            category: 'eating_out',
+            time: '2018-03-02T10:33:00.000Z'
+        },{
+            id: 6,
+            sourceAccount: 'A',
+            targetAccount: 'C',
+            amount: 250,
+            category: 'other',
+            time: '2018-03-02T10:33:05.000Z'
+        },{
+            id: 4,
+            sourceAccount: 'A',
+            targetAccount: 'B',
+            amount: 100,
+            category: 'eating_out',
+            time: '2018-03-02T10:36:00.000Z'
+        },{
+            id: 2,
+            sourceAccount: 'A',
+            targetAccount: 'B',
+            amount: 100,
+            category: 'eating_out',
+            time: '2018-03-02T10:33:50.000Z'
+        },{
+            id: 5,
+            sourceAccount: 'A',
+            targetAccount: 'C',
+            amount: 250,
+            category: 'other',
+            time: '2018-03-02T10:33:00.000Z'
+            }
+        ];
+        
+        findDuplicateTransactions(transactions);
+        
+        function findDuplicateTransactions (transactions = []) {
+            var result = groupBy(transactions, function(item)
+            {
+            return [item.sourceAccount, item.targetAccount, item.amount, item.category];
+            });
+        
+            result = removeUniqueElements(result);
+
+            var manterEstes = removeElementsByDate(result);
+        
+            result.forEach(element1 => {
+                element1.forEach((element2, index) => {
+                    // manterEstes.forEach(element => {
+                        
+                    // });
+                    if(element2.id == 4){
+                        console.info("encontrei o elemento a ser removido: ");
+                        console.info(element2);
+                        element1.splice(index, 1);
+                    }
+                });
+            });
+
+            return result;
+        }
+
+        function removeUniqueElements(array){
+            var filtered = array.filter(function(value, index, arr){
+                return value.length >= 2;
+            });
+
+            return filtered;
+        }
+
+        function removeUniqueElements(array){
+            var filtered = array.filter(function(value, index, arr){
+                return value.length >= 2;
+            });
+
+            return filtered;
+        }
+
+        function removeElementsByDate(array){
+            var filtered = [];
+
+            for(var i = 0; i<array.length; i++){
+                //blocos maiores
+                var blocoMaior = array[i];
+                console.info("-------------> inicio do bloco: " + i)
+
+                for(var j = 0; j<blocoMaior.length; j++){
+                    //blocos menores
+                    var blocoMenor = blocoMaior[j];
+
+                    for(var w = 0; w<blocoMaior.length; w++){
+                        var blocoMenorNovamente = blocoMaior[w];
+
+                        if(blocoMenor.id != blocoMenorNovamente.id){
+                            console.info("comparando o item: " + blocoMenor.id + " com " + blocoMenorNovamente.id);
+    
+                            var date1 = new Date(blocoMenorNovamente.time);
+                            var date2 = new Date(blocoMenor.time);
+            
+                            var timeDiff = Math.abs(date2.getTime() - date1.getTime());
+                            if( timeDiff < 60000) {
+                                //blocoMaior.splice(i, 1);
+                                console.info("podem ser iguais");
+                                blocoMenor.flag = true;
+                                filtered.push(blocoMenor);
+                            }
+                        }
+                    };
+                    
+                }
+            }
+
+            //remover os não listados
+            // for(var i = 0; i<array.length; i++){
+            //     //blocos maiores
+            //     var blocoMaior = array[i];
+
+            //     for(var j = 0; j<blocoMaior.length; j++){
+            //         //blocos menores
+            //         var blocoMenor = blocoMaior[j];
+
+            //         for(var w = 0; w<filtered.length; w++){
+            //             if(filtered[w].id == blocoMenor.id){
+            //                 console.info("não remover este: " + blocoMenor.id);
+            //             }else{
+            //                 console.info("remover este: " + blocoMenor.id);
+            //                 delete blocoMenor;
+            //             }
+                        
+            //         }
+                    
+            //     }
+            // }
+            return filtered;
+
+        }
+
+        function groupBy( array , f )
+        {
+        var groups = {};
+        array.forEach( function( o )
+        {
+            var group = JSON.stringify( f(o) );
+            groups[group] = groups[group] || [];
+            groups[group].push( o );  
+        });
+        return Object.keys(groups).map( function( group )
+        {
+            return groups[group]; 
+        })
+        }
+
+
+    </script>
+</body>
+</html>

@@ -4,7 +4,7 @@ const findDuplicateTransactions = app.findDuplicateTransactions;
 
 let transactionsEmpty = [];
 
-let transactionsAllPossibilities = [
+let transactions = [
     {
       id: 3,
       sourceAccount: 'A',
@@ -56,10 +56,13 @@ let transactionsAllPossibilities = [
   ];
 
 describe("findDuplicateTransactions()", function() {
-	it("returns 0 if there are no transactions", function() {
-		assert.deepEqual(findDuplicateTransactions([]), []);
-	});
+	// it("returns 0 if there are no transactions", function() {
+	// 	assert.deepEqual(findDuplicateTransactions([]), []);
+	// });
 
+	it("validade size of transactions", function() {
+		assert.equal(findDuplicateTransactions(transactions).length, 6);
+	});
 	
 
 });
