@@ -1,0 +1,19 @@
+Technologies: 
+Frontend: HTML+CSS+JAVASCRIPT (ANGULAR)
+Efficient tecnologies, clean code, not directional bind with backend, rest api consumer, clean design pattern
+
+Backend: Java, Spring Security, Spring Data, Mysql, Spring MVC
+Market technology, security application, Rest Api design pattern, free database
+
+Layout and UI
+Bootstrap or Material Design to make easy maintenance. Clean components, good datagrid organization.
+
+Securty
+We can use JWT to ensure a minimum security handling tokens instead of personal data, and Spring security can help us with authorizations and authentications
+
+Development 
+We can use Junit to create the unit tests and some plugins to see code coverage
+We can use Maven to help us manager the dependencies, unit tests and the workflow
+We can use Git to version the code and keep everyone up to date and help us with continuos integration
+Jenkins to CI, configuring quality code with sonar and run unit tests
+We can use Jira to manage issues, generate reports and keep all team in the same page
